@@ -1,18 +1,20 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
   Row,
   Col,
   Form,
   Input,
-  FormGroup, Button, Spinner, Alert,
-} from 'reactstrap';
+  FormGroup,
+  Button,
+  Spinner,
+  Alert,
+} from "reactstrap";
 
 function Contact() {
-
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [content, setContent] = useState('');
-  const [message, setMessage] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [content, setContent] = useState("");
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -33,33 +35,56 @@ function Contact() {
     inputReducers[name](value);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('name', name);
-    console.log('email', email);
-    console.log('content', content);
+    console.log("name", name);
+    console.log("email", email);
+    console.log("content", content);
     setSubmitted(true);
   };
 
   return (
     <Row>
-      <Col md={{size: 4, offset: 4}}>
-        <br/>
+      <Col md={{ size: 4, offset: 4 }}>
+        <br />
         <h3 className="text-center">contact us</h3>
         <br />
         <Form onSubmit={handleSubmit}>
-          <FormGroup className={submitted ? 'd-none' : ''} row>
+          <FormGroup className={submitted ? "d-none" : ""} row>
             <Col md={12} className="mb-3">
-              <Input type="text" id="name" onChange={handleChange}
-                     name="name" placeholder="name" autoComplete="off" autoFocus required />
+              <Input
+                type="text"
+                id="name"
+                onChange={handleChange}
+                name="name"
+                placeholder="name"
+                autoComplete="off"
+                autoFocus
+                required
+              />
             </Col>
             <Col md={12} className="mb-3">
-              <Input type="email" id="email" onChange={handleChange}
-                     name="email" placeholder="email" autoComplete="off" required />
+              <Input
+                type="email"
+                id="email"
+                onChange={handleChange}
+                name="email"
+                placeholder="email"
+                autoComplete="off"
+                required
+              />
             </Col>
             <Col md={12} className="mb-3">
-              <Input type="textarea" id="content" onChange={handleChange}
-                     name="content" placeholder="body" rows={5} autoComplete="off" required />
+              <Input
+                type="textarea"
+                id="content"
+                onChange={handleChange}
+                name="content"
+                placeholder="body"
+                rows={5}
+                autoComplete="off"
+                required
+              />
             </Col>
             <Col className="mb-3">
               <Button block color="primary">
@@ -69,11 +94,10 @@ function Contact() {
           </FormGroup>
           <FormGroup row>
             <Col md={12} className="text-center">
-              <div className={'mb-3 ' + (loading ? '' : 'd-none')}>
+              <div className={"mb-3 " + (loading ? "" : "d-none")}>
                 <Spinner color="primary" size="lg" />
               </div>
-              <Alert color={success ? 'success' : 'danger'}
-                     isOpen={visible}>
+              <Alert color={success ? "success" : "danger"} isOpen={visible}>
                 {message}
               </Alert>
             </Col>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Row,
   Col,
@@ -7,38 +7,43 @@ import {
   TabPane,
   NavLink,
   TabContent,
-} from 'reactstrap';
-import classnames from 'classnames';
+} from "reactstrap";
+import classnames from "classnames";
 
 function Account() {
+  const [activeTab, setActiveTab] = useState("1");
 
-  const [activeTab, setActiveTab] = useState('1');
-
-  const toggle = tab => {
+  const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
-  }
+  };
 
   return (
     <div>
-      <br/>
+      <br />
       <Row>
-        <Col md={{size: 10, offset: 1}} sm={12}>
+        <Col md={{ size: 10, offset: 1 }} sm={12}>
           <Row>
             <Col md={3} sm={12}>
               <Nav vertical pills>
                 <NavItem>
                   <NavLink
-                    style={{cursor: 'pointer'}}
-                    onClick={() => { toggle('1'); }}
-                    className={classnames({ active: activeTab === '1' })}>
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      toggle("1");
+                    }}
+                    className={classnames({ active: activeTab === "1" })}
+                  >
                     profile
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink
-                    style={{cursor: 'pointer'}}
-                    onClick={() => { toggle('2'); }}
-                    className={classnames({ active: activeTab === '2' })}>
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      toggle("2");
+                    }}
+                    className={classnames({ active: activeTab === "2" })}
+                  >
                     addresses
                   </NavLink>
                 </NavItem>
@@ -47,7 +52,7 @@ function Account() {
             <Col md={9} sm={12}>
               <TabContent activeTab={activeTab}>
                 <TabPane tabId="1">
-
+                  <h3>profile</h3>
                 </TabPane>
                 <TabPane tabId="2">
                   <h3>addresses</h3>

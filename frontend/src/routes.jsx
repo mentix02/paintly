@@ -1,15 +1,15 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 
-import Home from './views/Home';
-import Cart from './views/Cart';
-import Reset from './views/Reset';
-import Forgot from './views/Forgot';
-import Contact from './views/Contact';
-import Account from './views/Account';
-import Register from './views/Register';
-import Authenticate from './views/Authenticate';
-import PrivateRoute from './components/PrivateRoute';
+import Home from "./views/Home";
+import Cart from "./views/Cart";
+import Reset from "./views/Reset";
+import Forgot from "./views/Forgot";
+import Contact from "./views/Contact";
+import Account from "./views/Account";
+import Register from "./views/Register";
+import Authenticate from "./views/Authenticate";
+import PrivateRoute from "./components/PrivateRoute";
 
 const BaseRouter = () => (
   <Switch>

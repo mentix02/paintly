@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
-import { 
-  Row, 
+import React, { useState } from "react";
+import {
+  Row,
   Col,
   Form,
   Alert,
   Input,
   Button,
   Spinner,
-  FormGroup
-} from 'reactstrap';
+  FormGroup,
+} from "reactstrap";
 
-import { sendResetPasswordLink } from '../api/auth';
+import { sendResetPasswordLink } from "../api/auth";
 
 function Forgot() {
-
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -24,7 +23,7 @@ function Forgot() {
     email: setEmail,
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     setLoading(true);
@@ -32,22 +31,24 @@ function Forgot() {
     console.log(email);
 
     // make api call
-    sendResetPasswordLink(email).then(data => {
-      if (data['error']) {
-        setSuccess(false);
-        setMessage(data.error);
-      } else {
-        setSuccess(true);
-        setMessage(data.message);
-      }
-    }).catch(err => {
-      console.log(err);
-    }).finally(() => {
-      setVisible(true);
-      setLoading(false);
-      setSubmitted(true);
-    });
-
+    sendResetPasswordLink(email)
+      .then((data) => {
+        if (data["error"]) {
+          setSuccess(false);
+          setMessage(data.error);
+        } else {
+          setSuccess(true);
+          setMessage(data.message);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setVisible(true);
+        setLoading(false);
+        setSubmitted(true);
+      });
   };
 
   const handleChange = (e) => {
@@ -63,10 +64,17 @@ function Forgot() {
           <h2 className="text-center">reset password</h2>
           <br />
           <Form onSubmit={handleSubmit}>
-            <FormGroup className={submitted ? 'd-none' : ''} row>
+            <FormGroup className={submitted ? "d-none" : ""} row>
               <Col md={12} className="mb-3">
-                <Input type="email" id="email" onChange={handleChange}
-                       name="email" placeholder="email" autoComplete="off" required />
+                <Input
+                  type="email"
+                  id="email"
+                  onChange={handleChange}
+                  name="email"
+                  placeholder="email"
+                  autoComplete="off"
+                  required
+                />
               </Col>
               <Col className="mb-3">
                 <Button block color="primary">
@@ -76,11 +84,10 @@ function Forgot() {
             </FormGroup>
             <FormGroup row>
               <Col md={12} className="text-center">
-                <div className={'mb-3 ' + (loading ? '' : 'd-none')}>
+                <div className={"mb-3 " + (loading ? "" : "d-none")}>
                   <Spinner color="primary" size="lg" />
                 </div>
-                <Alert color={success ? 'success' : 'danger'}
-                       isOpen={visible}>
+                <Alert color={success ? "success" : "danger"} isOpen={visible}>
                   {message}
                 </Alert>
               </Col>

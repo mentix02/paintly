@@ -1,12 +1,5 @@
-import React from 'react';
-import {
-  Row,
-  Col,
-  Form,
-  Label,
-  Input,
-  FormGroup,
-} from 'reactstrap';
+import React from "react";
+import { Row, Col, Form, Label, Input, FormGroup } from "reactstrap";
 
 function AccountEditForm() {
   return (
