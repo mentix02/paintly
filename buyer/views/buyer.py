@@ -95,9 +95,8 @@ class BuyerRegisterAPIView(APIView):
 
 
 class BuyerSendPasswordResetLinkAPIView(APIView):
-    """
-    Sends a password reset link with auth_token to buyer for resetting account password.
-    """
+
+    """ Sends a password reset link with auth_token to buyer for resetting account password. """
 
     @staticmethod
     def post(request):
@@ -126,9 +125,8 @@ class BuyerSendPasswordResetLinkAPIView(APIView):
 
 
 class ValidateResetTokenAPIView(APIView):
-    """
-    Validates auth_token keys validity.
-    """
+
+    """ Validates auth_token keys validity. """
 
     @staticmethod
     def post(request):
@@ -150,9 +148,8 @@ class ValidateResetTokenAPIView(APIView):
 
 
 class BuyerResetPasswordAPIView(APIView):
-    """
-    Requires a valid auth_token key for user and resets with provided password.
-    """
+
+    """ Requires a valid auth_token key for user and resets with provided password. """
 
     @staticmethod
     def post(request):

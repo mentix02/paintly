@@ -8,9 +8,8 @@ from buyer.factory import fake_buyer, fake
 
 
 class BuyerActivateAPIView(APITestCase):
-    """
-    Tests views.BuyerActivateAPIView with invalid token.
-    """
+
+    """ Tests views.BuyerActivateAPIView with invalid token. """
 
     @classmethod
     def setUpTestData(cls):
@@ -23,9 +22,8 @@ class BuyerActivateAPIView(APITestCase):
 
 
 class BuyerChangePasswordAPIViewTests(APITestCase):
-    """
-    Tests views.BuyerChangePassword with randomized edge cases for invalid old and new passwords.
-    """
+
+    """ Tests views.BuyerChangePassword with randomized edge cases for invalid old and new passwords. """
 
     @classmethod
     def setUpTestData(cls) -> None:
@@ -33,9 +31,9 @@ class BuyerChangePasswordAPIViewTests(APITestCase):
         cls.new_password = fake.pystr(9, 12)
 
     def test_invalid_old_password(self) -> None:
-        """
-        Tests changing password with invalid current password provided.
-        """
+
+        """ Tests changing password with invalid current password provided. """
+
         # noinspection PyUnresolvedReferences
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.buyer.auth_token.key)
 
@@ -49,9 +47,9 @@ class BuyerChangePasswordAPIViewTests(APITestCase):
         self.assertTrue(self.buyer.check_password(settings.TEST_BUYER_PASSWORD))
 
     def test_new_password_less_than_8_chars(self) -> None:
-        """
-        Tests changing new password with less than 8 characters.
-        """
+
+        """ Tests changing new password with less than 8 characters. """
+
         # noinspection PyUnresolvedReferences
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.buyer.auth_token.key)
 
@@ -68,6 +66,9 @@ class BuyerChangePasswordAPIViewTests(APITestCase):
         self.assertTrue(self.buyer.check_password(settings.TEST_BUYER_PASSWORD))
 
     def test_valid_change_password(self) -> None:
+
+        """ Tests successful changing of password to a new random string. """
+
         # noinspection PyUnresolvedReferences
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.buyer.auth_token.key)
 

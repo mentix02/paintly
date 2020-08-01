@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict
+from typing import Any, Dict, Union
 
 from django.db import models
 from django.db.models.fields.files import ImageFieldFile
@@ -19,8 +19,12 @@ class Painting(models.Model):
 
     tags = TaggableManager(blank=True)
 
-    def get_thumbnail(self) -> ImageFieldFile:
-        return self.images.first().file
+    def get_thumbnail(self) -> Union[ImageFieldFile, None]:
+        first_image = self.images.first()
+        if first_image is not None:
+            return self.images.first().file
+        else:
+            return None
 
     class Meta:
         ordering = ('-pk',)
