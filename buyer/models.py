@@ -103,6 +103,9 @@ class Address(models.Model):
     city = models.CharField(max_length=50)
     pin_code = models.CharField(max_length=7)
     house_number = models.CharField(max_length=50)
+    buyer = models.ForeignKey(
+        'Buyer', on_delete=models.CASCADE, related_name='addresses'
+    )
     state = models.CharField(
         max_length=2,
         help_text='Delivery address state.',
@@ -147,15 +150,23 @@ class Address(models.Model):
         ),
     )
 
+    class Meta:
+        verbose_name = 'Address'
+        verbose_name_plural = 'Addresses'
+
     def __str__(self) -> str:
         return f'{self.house_number} {self.city}, {self.state} {self.pin_code}'
+
+
+def tomorrow():
+    return timezone.now() + timedelta(days=1)
 
 
 class ResetToken(models.Model):
 
     token = models.CharField(max_length=64)
     used = models.BooleanField(default=False)
-    expires_on = models.DateTimeField(default=timezone.now() + timedelta(days=1))
+    expires_on = models.DateTimeField(default=tomorrow)
     buyer = models.ForeignKey('Buyer', on_delete=models.CASCADE, related_name='tokens')
 
     def __str__(self) -> str:
@@ -167,6 +178,9 @@ class ResetToken(models.Model):
         """
         self.used = True
         self.save()
+
+    def save(self, *args, **kwargs):
+        super().save()
 
     @classmethod
     def valid_token(
