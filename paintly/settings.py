@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'debug_toolbar',
     'rest_framework',
+    'django_cleanup',
     'taggit_serializer',
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
