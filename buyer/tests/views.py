@@ -7,7 +7,7 @@ from rest_framework.test import APITestCase
 from buyer.factory import fake_buyer, fake
 
 
-class BuyerActivateAPIView(APITestCase):
+class BuyerActivateAPIViewTest(APITestCase):
 
     """ Tests views.BuyerActivateAPIView with invalid token. """
 
