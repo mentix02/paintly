@@ -35,6 +35,9 @@ class CartModelMethodTests(TestCase):
 
 
 class CartAPIViewTests(APITestCase):
+
+    """ Cohesive unit tests for views relating to the Cart model. """
+
     @classmethod
     def setUpTestData(cls):
         cls.buyer = fake_buyer()
@@ -54,6 +57,12 @@ class CartAPIViewTests(APITestCase):
             reverse('cart:add'), {'painting_id': self.painting1.id}
         )
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_add_cart_no_painting_id(self):
+        # noinspection PyUnresolvedReferences
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.buyer.auth_token.key)
+        response = self.client.post(reverse('cart:add'))
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_add_cart_invalid_painting_id(self):
         # noinspection PyUnresolvedReferences
