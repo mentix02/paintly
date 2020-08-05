@@ -68,12 +68,24 @@ AUTH_USER_MODEL = 'buyer.Buyer'
 
 WSGI_APPLICATION = 'paintly.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if os.environ.get('GITHUB_WORKFLOW', False):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'paintly',
+            'HOST': '',
+            'PORT': '',
+            'USER': 'root',
+            'PASSWORD': 'toor',
+        }
+    }
 
 LANGUAGE_CODE = 'en-us'
 
