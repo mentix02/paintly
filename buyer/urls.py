@@ -7,7 +7,10 @@ from buyer.views import (
     BuyerRegisterAPIView,
     ValidateResetTokenAPIView,
     BuyerResetPasswordAPIView,
+    BuyerAddressDeleteAPIView,
+    BuyerAddressUpdateAPIView,
     BuyerChangePasswordAPIView,
+    BuyerAddressListCreateAPIView,
     BuyerSendPasswordResetLinkAPIView,
 )
 
@@ -21,4 +24,19 @@ urlpatterns = [
     path('change/', BuyerChangePasswordAPIView.as_view(), name='change'),
     path('validate/', ValidateResetTokenAPIView.as_view(), name='validate'),
     path('forget/', BuyerSendPasswordResetLinkAPIView.as_view(), name='forget'),
+    path(
+        'addresses/list/',
+        BuyerAddressListCreateAPIView.as_view(),
+        name='list-addresses',
+    ),
+    path(
+        'addresses/update/<int:pk>/',
+        BuyerAddressUpdateAPIView.as_view(),
+        name='update-address',
+    ),
+    path(
+        'addresses/delete/<int:pk>/',
+        BuyerAddressDeleteAPIView.as_view(),
+        name='remove-address',
+    ),
 ]

@@ -3,14 +3,14 @@ import "./css/Authenticate.css";
 import { Link } from "react-router-dom";
 import React, { Component } from "react";
 import {
-  FormGroup,
-  Form,
-  Input,
   Row,
   Col,
-  Button,
+  Form,
   Alert,
+  Input,
+  Button,
   Spinner,
+  FormGroup,
 } from "reactstrap";
 
 import { getAuthToken } from "../api/auth";

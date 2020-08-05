@@ -10,8 +10,10 @@ import {
 } from "reactstrap";
 import classnames from "classnames";
 
+import Addresses from "../components/Addresses";
+
 function Account() {
-  const [activeTab, setActiveTab] = useState("1");
+  const [activeTab, setActiveTab] = useState("2");
 
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
@@ -23,7 +25,7 @@ function Account() {
       <Row>
         <Col md={{ size: 10, offset: 1 }} sm={12}>
           <Row>
-            <Col md={3} sm={12}>
+            <Col md={3} sm={3} xs={12}>
               <Nav vertical pills>
                 <NavItem>
                   <NavLink
@@ -49,13 +51,14 @@ function Account() {
                 </NavItem>
               </Nav>
             </Col>
-            <Col md={9} sm={12}>
+            <Col md={9} sm={9} xs={12} className="mt-2">
               <TabContent activeTab={activeTab}>
                 <TabPane tabId="1">
                   <h3>profile</h3>
                 </TabPane>
                 <TabPane tabId="2">
                   <h3>addresses</h3>
+                  <Addresses />
                 </TabPane>
               </TabContent>
             </Col>

@@ -7,3 +7,8 @@ from .buyer import (
     BuyerChangePasswordAPIView,
     BuyerSendPasswordResetLinkAPIView,
 )
+from .address import (
+    BuyerAddressDeleteAPIView,
+    BuyerAddressUpdateAPIView,
+    BuyerAddressListCreateAPIView,
+)

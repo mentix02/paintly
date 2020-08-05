@@ -2,7 +2,9 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.admin import UserAdmin as AbstractUserAdmin
 
-from buyer.models import Buyer
+from buyer.models import Buyer, Address
+
+admin.site.register(Address)
 
 
 @admin.register(Buyer)

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from hashlib import sha256
 from datetime import timedelta
-from typing import Tuple, Union
+from typing import Tuple, Union, Dict
 
 from django.db import models
 from django.utils import timezone
@@ -48,6 +48,14 @@ class UserManager(BaseUserManager):
 class Buyer(AbstractUser):
 
     username = None
+    primary_address = models.ForeignKey(
+        'Address',
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name='primary_buyer',
+        help_text='Primary address to deliver items to.',
+    )
     is_active = models.BooleanField(
         _('active'),
         default=False,
@@ -100,6 +108,44 @@ class Buyer(AbstractUser):
 
 class Address(models.Model):
 
+    STATES: Dict[str, str] = {
+        'AP': 'Andhra Pradesh',
+        'AR': 'Arunachal Pradesh',
+        'AS': 'Assam',
+        'BR': 'Bihar',
+        'CG': 'Chhattisgarh',
+        'GA': 'Goa',
+        'GJ': 'Gujarat',
+        'HR': 'Haryana',
+        'HP': 'Himachal Pradesh',
+        'JK': 'Jammu and Kashmir',
+        'JH': 'Jharkhand',
+        'KA': 'Karnataka',
+        'KL': 'Kerala',
+        'MP': 'Madhya Pradesh',
+        'MH': 'Maharashtra',
+        'MN': 'Manipur',
+        'ML': 'Meghalaya',
+        'MZ': 'Mizoram',
+        'NL': 'Nagaland',
+        'OR': 'Orissa',
+        'PB': 'Punjab',
+        'RJ': 'Rajasthan',
+        'SK': 'Sikkim',
+        'TN': 'Tamil Nadu',
+        'TR': 'Tripura',
+        'UK': 'Uttarakhand',
+        'UP': 'Uttar Pradesh',
+        'WB': 'West Bengal',
+        'AN': 'Andaman and Nicobar Islands',
+        'CH': 'Chandigarh',
+        'DH': 'Dadra and Nagar Haveli',
+        'DD': 'Daman and Diu',
+        'DL': 'Delhi',
+        'LD': 'Lakshadweep',
+        'PY': 'Pondicherry',
+    }
+
     city = models.CharField(max_length=50)
     pin_code = models.CharField(max_length=7)
     house_number = models.CharField(max_length=50)
@@ -108,51 +154,20 @@ class Address(models.Model):
     )
     state = models.CharField(
         max_length=2,
+        choices=tuple(STATES.items()),
         help_text='Delivery address state.',
-        choices=(
-            ('AP', 'Andhra Pradesh'),
-            ('AR', 'Arunachal Pradesh'),
-            ('AS', 'Assam'),
-            ('BR', 'Bihar'),
-            ('CG', 'Chhattisgarh'),
-            ('GA', 'Goa'),
-            ('GJ', 'Gujarat'),
-            ('HR', 'Haryana'),
-            ('HP', 'Himachal Pradesh'),
-            ('JK', 'Jammu and Kashmir'),
-            ('JH', 'Jharkhand'),
-            ('KA', 'Karnataka'),
-            ('KL', 'Kerala'),
-            ('MP', 'Madhya Pradesh'),
-            ('MH', 'Maharashtra'),
-            ('MN', 'Manipur'),
-            ('ML', 'Meghalaya'),
-            ('MZ', 'Mizoram'),
-            ('NL', 'Nagaland'),
-            ('OR', 'Orissa'),
-            ('PB', 'Punjab'),
-            ('RJ', 'Rajasthan'),
-            ('SK', 'Sikkim'),
-            ('TN', 'Tamil Nadu'),
-            ('TR', 'Tripura'),
-            ('UK', 'Uttarakhand'),
-            ('UP', 'Uttar Pradesh'),
-            ('WB', 'West Bengal'),
-            ('TN', 'Tamil Nadu'),
-            ('TR', 'Tripura'),
-            ('AN', 'Andaman and Nicobar Islands'),
-            ('CH', 'Chandigarh'),
-            ('DH', 'Dadra and Nagar Haveli'),
-            ('DD', 'Daman and Diu'),
-            ('DL', 'Delhi'),
-            ('LD', 'Lakshadweep'),
-            ('PY', 'Pondicherry'),
-        ),
     )
 
     class Meta:
         verbose_name = 'Address'
         verbose_name_plural = 'Addresses'
+        indexes = [models.Index(fields=('buyer',))]
+
+    def is_primary(self) -> bool:
+        return self.buyer.primary_address == self
+
+    def get_state(self) -> str:
+        return self.STATES[self.state]
 
     def __str__(self) -> str:
         return f'{self.house_number} {self.city}, {self.state} {self.pin_code}'
