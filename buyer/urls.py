@@ -5,6 +5,7 @@ from rest_framework.authtoken import views
 from buyer.views import (
     GoogleSignInAPIView,
     BuyerRegisterAPIView,
+    BuyerActivateAPIView,
     ValidateResetTokenAPIView,
     BuyerResetPasswordAPIView,
     BuyerAddressDeleteAPIView,
@@ -21,6 +22,7 @@ urlpatterns = [
     path('social/', GoogleSignInAPIView.as_view(), name='social'),
     path('reset/', BuyerResetPasswordAPIView.as_view(), name='reset'),
     path('register/', BuyerRegisterAPIView.as_view(), name='register'),
+    path('activate/', BuyerActivateAPIView.as_view(), name='activate'),
     path('change/', BuyerChangePasswordAPIView.as_view(), name='change'),
     path('validate/', ValidateResetTokenAPIView.as_view(), name='validate'),
     path('forget/', BuyerSendPasswordResetLinkAPIView.as_view(), name='forget'),
