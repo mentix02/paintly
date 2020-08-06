@@ -18,6 +18,8 @@ def create_user_token_and_cart(
         Cart.objects.get_or_create(buyer=instance)
         t, _ = Token.objects.get_or_create(user=instance)
         if not (
-            instance.is_active or connection.settings_dict['NAME'].startswith('test_')
+            instance.is_active
+            or connection.settings_dict['NAME'].rsplit('/')[-1].startswith('test_')
         ):
+            print('sending')
             send_activation_email(instance.email, t.key)
