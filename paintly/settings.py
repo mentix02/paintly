@@ -34,6 +34,13 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 ]
 
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -73,6 +80,7 @@ if os.environ.get('GITHUB_WORKFLOW', False):
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            'TEST': {'NAME': os.path.join(BASE_DIR, 'test_db.sqlite3')},
         }
     }
 else:
@@ -84,6 +92,7 @@ else:
             'PORT': '',
             'USER': 'root',
             'PASSWORD': 'toor',
+            'TEST': {'NAME': 'test_default'},
         }
     }
 
